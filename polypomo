@@ -218,8 +218,6 @@ def check_actions(sock, status):
     elif action.startswith("time"):
         _, op, seconds = action.split(" ")
         status.change(op, seconds)
-    elif action == "exit":
-        raise Exit()
 
 
 def action_display(args):
@@ -232,11 +230,7 @@ def action_display(args):
         while True:
             status.show()
             status.update()
-            try:
-                check_actions(sock, status)
-            except Exit:
-                print("Received exit request...")
-                break
+            check_actions(sock, status)
 
 
 def action_toggle(args):
